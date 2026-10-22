@@ -1,0 +1,357 @@
+/* ============================================================
+   沉浸式免费翻译 — WinUI3 / Fluent 共享样式（扩展页面共用）
+   options.html / popup.html 引用；规范：Segoe UI Variable、
+   4px 控件圆角 / 8px 浮层圆角、Acrylic 卡片、accent #0078D4、明暗双主题
+   ============================================================ */
+
+:root {
+  --f-bg: #F3F3F3;
+  --f-card: rgba(255, 255, 255, 0.78);
+  --f-card-solid: #FFFFFF;
+  --f-input: #FFFFFF;
+  --f-stroke: rgba(0, 0, 0, 0.08);
+  --f-stroke2: rgba(0, 0, 0, 0.12);
+  --f-text: #1A1A1A;
+  --f-text2: rgba(0, 0, 0, 0.58);
+  --f-text3: rgba(0, 0, 0, 0.42);
+  --f-acc: #0078D4;
+  --f-acc-h: #1A83D9;
+  --f-acc-press: #005BA1;
+  --f-acc-sub: rgba(0, 120, 212, 0.07);
+  --f-acc-sub2: rgba(0, 120, 212, 0.13);
+  --f-fill: rgba(0, 0, 0, 0.038);
+  --f-err: #D13438;
+  --f-ok: #0F9D58;
+  --f-radius: 4px;
+  --f-radius-lg: 8px;
+  --f-ring: 0 0 0 3px rgba(0, 120, 212, 0.18);
+  --f-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 14px rgba(0, 0, 0, 0.05);
+  --f-fly-shadow: 0 8px 16px rgba(0, 0, 0, 0.14), 0 0 1px rgba(0, 0, 0, 0.1);
+  --f-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --f-font: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", "MiSans", system-ui, sans-serif;
+  --f-font-display: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --f-bg: #202020;
+    --f-card: rgba(43, 43, 43, 0.82);
+    --f-card-solid: #2B2B2B;
+    --f-input: #2D2D2D;
+    --f-stroke: rgba(255, 255, 255, 0.08);
+    --f-stroke2: rgba(255, 255, 255, 0.13);
+    --f-text: #FFFFFF;
+    --f-text2: rgba(255, 255, 255, 0.76);
+    --f-text3: rgba(255, 255, 255, 0.5);
+    --f-acc-sub: rgba(76, 164, 224, 0.14);
+    --f-acc-sub2: rgba(76, 164, 224, 0.24);
+    --f-fill: rgba(255, 255, 255, 0.055);
+    --f-err: #F04E3E;
+    --f-ok: #2FB86C;
+    --f-ring: 0 0 0 3px rgba(76, 164, 224, 0.3);
+    --f-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --f-fly-shadow: 0 8px 16px rgba(0, 0, 0, 0.44), 0 0 1px rgba(0, 0, 0, 0.5);
+  }
+}
+
+* { box-sizing: border-box; }
+
+.fg {
+  font-family: "Segoe Fluent Icons", "Segoe MDL2 Assets";
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.fg-sm { font-size: 12px; }
+
+/* ---------- SettingsCard ---------- */
+.f-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--f-radius);
+  background: var(--f-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--f-stroke);
+  box-shadow: var(--f-shadow);
+}
+.f-card + .f-card { margin-top: 4px; }
+.f-card.col { flex-direction: column; align-items: stretch; gap: 8px; }
+.f-card .sc-main { flex: 1; min-width: 0; }
+.f-card .sc-title { font-size: 14px; font-weight: 500; color: var(--f-text); }
+.f-card .sc-desc { font-size: 12px; color: var(--f-text2); margin-top: 2px; line-height: 1.55; }
+.f-card .sc-desc a { color: var(--f-acc); text-decoration: none; }
+.f-card .sc-desc a:hover { text-decoration: underline; }
+.f-card .sc-desc code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 11px;
+  background: var(--f-fill);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ---------- 输入控件（WinUI TextBox：焦点 accent 下划线） ---------- */
+.f-input,
+select.f-input,
+textarea.f-input {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--f-text);
+  background: var(--f-input);
+  border: 1px solid var(--f-stroke2);
+  border-bottom-color: var(--f-text3);
+  border-radius: var(--f-radius);
+  outline: none;
+  min-width: 0;
+  transition: border-color 0.15s var(--f-ease), box-shadow 0.15s var(--f-ease);
+}
+textarea.f-input { height: auto; padding: 8px 10px; line-height: 1.6; resize: vertical; }
+.f-input:hover { border-color: var(--f-text3); }
+.f-input:focus {
+  border-color: var(--f-stroke2);
+  border-bottom: 2px solid var(--f-acc);
+  box-shadow: 0 1px 0 0 var(--f-acc);
+}
+.f-input::placeholder { color: var(--f-text3); }
+select.f-input { cursor: pointer; }
+input.f-input[type="password"] { letter-spacing: 0.05em; }
+
+.f-field { display: flex; align-items: center; gap: 8px; flex: none; }
+.f-field label { font-size: 12.5px; font-weight: 500; color: var(--f-text2); }
+
+/* ---------- 按钮 ---------- */
+.f-btn {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 13.5px;
+  font-family: inherit;
+  font-weight: 400;
+  color: var(--f-text);
+  background: var(--f-card-solid);
+  border: 1px solid var(--f-stroke2);
+  border-bottom-color: rgba(0, 0, 0, 0.28);
+  border-radius: var(--f-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.14s var(--f-ease), transform 0.12s var(--f-ease);
+}
+.f-btn:hover { background: var(--f-fill); }
+.f-btn:active { transform: scale(0.97); background: var(--f-stroke); color: var(--f-text2); }
+.f-btn:focus-visible { outline: none; box-shadow: var(--f-ring); }
+.f-btn.acc {
+  background: var(--f-acc);
+  border-color: var(--f-acc);
+  color: #fff;
+  font-weight: 500;
+}
+.f-btn.acc:hover { background: var(--f-acc-h); }
+.f-btn.acc:active { background: var(--f-acc-press); }
+.f-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
+@media (prefers-color-scheme: dark) {
+  .f-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+  }
+  .f-btn:hover { background: rgba(255, 255, 255, 0.09); }
+}
+
+/* ---------- WinUI 开关（40×20 胶囊） ---------- */
+.f-switch {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  flex: none;
+  border-radius: 10px;
+  border: 1px solid var(--f-text3);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s var(--f-ease), border-color 0.15s var(--f-ease);
+}
+.f-switch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--f-text2);
+  transition: left 0.15s var(--f-ease), background 0.15s var(--f-ease);
+}
+.f-switch.on {
+  background: var(--f-acc);
+  border-color: var(--f-acc);
+}
+.f-switch.on::after {
+  left: 23px;
+  background: #fff;
+}
+.f-switch:focus-visible { outline: none; box-shadow: var(--f-ring); }
+
+/* ---------- 服务商单选卡 ---------- */
+.f-prov {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--f-radius);
+  background: var(--f-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--f-stroke);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.14s var(--f-ease), border-color 0.14s var(--f-ease);
+}
+.f-prov:hover { background: var(--f-card-solid); }
+.f-prov:focus-visible { outline: none; box-shadow: var(--f-ring); }
+.f-prov.sel { background: var(--f-acc-sub); border-color: var(--f-acc); }
+.f-radio {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid var(--f-text3);
+  transition: border 0.14s var(--f-ease);
+}
+.f-prov.sel .f-radio { border: 5.5px solid var(--f-acc); background: var(--f-card-solid); }
+.f-prov .p-main { font-size: 14px; color: var(--f-text); }
+.f-prov.sel .p-main { font-weight: 600; }
+.f-prov .p-sub { font-size: 11.5px; color: var(--f-text2); margin-top: 2px; line-height: 1.5; }
+
+/* ---------- 徽标 pill ---------- */
+.f-pill {
+  display: inline-block;
+  font-size: 10.5px;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--f-acc-sub2);
+  color: var(--f-text);
+  vertical-align: 1px;
+}
+.f-pill.neutral { background: var(--f-fill); color: var(--f-text2); }
+.f-pill.warn { background: rgba(245, 166, 35, 0.16); }
+
+/* ---------- 左导航（Win11 设置式） ---------- */
+.f-nav { display: flex; flex-direction: column; gap: 3px; }
+.f-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--f-radius);
+  font: inherit;
+  font-size: 14px;
+  color: var(--f-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.14s var(--f-ease);
+}
+.f-nav-item .fg { color: var(--f-text2); }
+.f-nav-item:hover { background: var(--f-fill); }
+.f-nav-item.active { background: var(--f-fill); font-weight: 500; }
+.f-nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--f-acc);
+}
+.f-nav-item:focus-visible { outline: none; box-shadow: var(--f-ring); }
+
+/* ---------- 查找设置 ---------- */
+.f-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 236px;
+  height: 32px;
+  padding: 0 10px;
+  flex: none;
+  border-radius: var(--f-radius);
+  border: 1px solid var(--f-stroke2);
+  border-bottom-color: var(--f-text3);
+  background: var(--f-input);
+}
+.f-search .fg { color: var(--f-text2); }
+.f-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--f-text);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+.f-search input::placeholder { color: var(--f-text3); }
+
+/* ---------- 样式画廊 ---------- */
+.f-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px; }
+.f-opt {
+  background: var(--f-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--f-stroke);
+  border-radius: var(--f-radius);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.14s var(--f-ease), border-color 0.14s var(--f-ease);
+}
+.f-opt:hover { background: var(--f-card-solid); }
+.f-opt:focus-visible { outline: none; box-shadow: var(--f-ring); }
+.f-opt.sel { border-color: var(--f-acc); box-shadow: 0 0 0 1px var(--f-acc); }
+.f-opt .demo {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.f-opt .name { margin-top: 10px; font-size: 11.5px; color: var(--f-text3); }
+
+/* ---------- 布局工具 ---------- */
+.f-cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px 24px; align-items: start; }
+.f-cols2 > div { min-width: 0; }
+.f-ovgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 4px; }
+.f-ovgrid .f-card + .f-card { margin-top: 0; }
+.f-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--f-line, rgba(0, 0, 0, 0.2));
+  flex: none;
+}
+.f-dot.on { background: var(--f-ok); box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.15); }
+.f-dot.err { background: var(--f-err); }
+.f-dot.busy { background: #F5A623; animation: f-blink 0.9s ease infinite; }
+@keyframes f-blink { 50% { opacity: 0.35; } }
+
+/* 状态文字 */
+#status { font-size: 12.5px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+#status.ok { color: var(--f-ok); }
+#status.err { color: var(--f-err); }
